@@ -1,0 +1,27 @@
+h3 {
+	margin: 0;
+}
+.titleNews {
+	min-height: 35px;
+}
+#navHeader
+{
+	background-color: #222;
+	background-image: linear-gradient(to bottom,#3c3c3c 0,#222 100%);
+	background-repeat: repeat-x;
+	border-color: #080808;
+	border-width: 0 0 1px;
+	border: 1px solid transparent;
+	margin-bottom: 20px;
+	min-height: 50px;
+	position: relative
+	top: 0;
+}
+#pageTitle {
+	color: #FFF;
+	font-size: 30px;
+}
+#pageSubTitle {
+	color: #FFF;
+	font-size: 20px;
+}

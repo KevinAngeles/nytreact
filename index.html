@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>New York Times Article Scrubber</title>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+		<nav id="navHeader">
+			<div class="container">
+				<h1 id="pageTitle" class="text-center">New York Times Article Scrubber</h1>
+				<h2 id="pageSubTitle" class="text-center">Search for and anotate articles of interest</h2>
+			</div>
+		</nav>
+		<div class="container">
+			<div id="searchSection" class="row">
+				<div class="col-md-12">
+					<div class="page-header">
+						<h2>Search</h2>
+					</div>
+					<form class="text-center">
+						<div class="form-group">
+							<label for="formTopic">Topic</label>
+							<input type="text" class="form-control" id="formTopic" placeholder="Topic">
+						</div>
+						<div class="form-group">
+							<label for="formStartYear">Start Year</label>
+							<input type="text" class="form-control" id="formStartYear" placeholder="MM/DD/YY">
+						</div>
+						<div class="form-group">
+							<label for="formEndYear">End Year</label>
+							<input type="text" class="form-control" id="formEndYear" placeholder="MM/DD/YY">
+						</div>
+						<button type="button" class="btn btn-primary">Search</button>
+					</form>
+				</div>
+			</div>
+			<div id="resultSection" class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<div class="page-header">
+						<h2>Results</h2>
+					</div>
+					<div id="news">
+						<div class="titleNews row">
+							<div class="col-md-8">Longhorns beats aggies again</div>
+							<div class="col-md-4 text-center"><button type="button" class="btn btn-success pull-right">Save</button></div>
+						</div>
+						<div class="titleNews row">
+							<div class="col-md-8">Aliens Invade Austin</div>
+							<div class="col-md-4 text-center"><button type="button" class="btn btn-success pull-right">Save</button></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div id="savedSection" class="col-md-12">
+					<div class="page-header">
+						<h2>Saved Articles</h2>
+					</div>
+				</div>
+                <div class="col-md-12">
+					<div class="row text-center">
+						<div class="col-md-4"><h3>Texas Longhorns wins the national championship!</h3></div>
+						<div class="col-md-4">Date Saved: 10/14/15</div>
+						<div class="col-md-4"><button type="button" class="btn btn-danger">Remove</button></div>
+					</div>
+					<div class="row">
+						<p class="col-md-12 text-center">Notes: What a wonderful achievement for mankind!</p>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="row text-center">
+						<div class="col-md-4"><h3>UT Austin ranks as the best university in Texas!</h3></div>
+						<div class="col-md-4">Date Saved: 10/14/15</div>
+						<div class="col-md-4"><button type="button" class="btn btn-danger">Remove</button></div>
+					</div>
+					<div class="row">
+						<p class="col-md-12 text-center">Notes: What a wonderful achievement for mankind!</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
