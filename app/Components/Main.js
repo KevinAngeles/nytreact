@@ -13,6 +13,7 @@ class Main extends React.Component {
 		super(props);
 		this.state = {
 			searchTerm: {},
+			savedArticles: [],
 			results: []
 		};
         this.setTerm = this.setTerm.bind(this);
@@ -20,8 +21,7 @@ class Main extends React.Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		if (prevState.searchTerm.topic !== this.state.searchTerm.topic || prevState.searchTerm.beginDate !== this.state.searchTerm.beginDate || prevState.searchTerm.endDate !== this.state.searchTerm.endDate ) {
-			console.log("UPDATED");
-			helpers.runQuery(this.state.searchTerm.topic,this.state.searchTerm.beginDate,this.state.searchTerm.endDate).then((data) => {
+			helpers.getArticles(this.state.searchTerm.topic,this.state.searchTerm.beginDate,this.state.searchTerm.endDate).then((data) => {
 				if (data !== this.state.results) {
 					this.setState({ results: data });
 				}
@@ -35,12 +35,18 @@ class Main extends React.Component {
 		});
 	}
 
+	componentWillMount(prevProps, prevState) {
+		helpers.getSavedArticles().then((data) => {
+			this.setState({ savedArticles: data });
+		});
+	}
+
 	render() {
 		return (
 			<div className="container">
 				<Search setTerm={this.setTerm} />
 				<Results results={this.state.results} />
-				<Saved />
+				<Saved savedArticles={this.state.savedArticles}/>
 			</div>
 		);
 	}

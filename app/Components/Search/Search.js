@@ -9,7 +9,6 @@ class Search extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		console.log("CLICK");
         var beginDate = document.getElementById("startYear").value;
         var formattedBeginDate = moment(beginDate, "MM/DD/YYYY").format("YYYYMMDD");
         var endDate = document.getElementById("endYear").value;
