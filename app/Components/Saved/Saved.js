@@ -1,8 +1,12 @@
 // Include React
 var React = require("react");
 
-var Saved = React.createClass({
-	render: function() {
+class Saved extends React.Component {
+    constructor(props) {
+		super(props);
+	}
+
+	render() {
 		return (
 			<div className="row">
 				<div id="savedSection" className="col-md-12">
@@ -33,6 +37,6 @@ var Saved = React.createClass({
 			</div>
 		);
 	}
-});
+}
 
-module.exports = Saved;
+export default Saved;

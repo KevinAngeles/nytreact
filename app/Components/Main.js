@@ -5,26 +5,46 @@ import Saved from "./Saved/Saved";
 import Search from "./Search/Search";
 import Results from "./Results/Results";
 
+// Helper Function
+import helpers from "./utils/helpers";
 
 class Main extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			searchTerm: "",
-			articles: ""
+			searchTerm: {},
+			results: []
 		};
+        this.setTerm = this.setTerm.bind(this);
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevState.searchTerm.topic !== this.state.searchTerm.topic || prevState.searchTerm.beginDate !== this.state.searchTerm.beginDate || prevState.searchTerm.endDate !== this.state.searchTerm.endDate ) {
+			console.log("UPDATED");
+			helpers.runQuery(this.state.searchTerm.topic,this.state.searchTerm.beginDate,this.state.searchTerm.endDate).then((data) => {
+				if (data !== this.state.results) {
+					this.setState({ results: data });
+				}
+			});
+		}
+	}
+
+	setTerm(term) {
+		this.setState({
+			searchTerm: term
+		});
 	}
 
 	render() {
 		return (
 			<div className="container">
-				<Search />
-				<Results />
+				<Search setTerm={this.setTerm} />
+				<Results results={this.state.results} />
 				<Saved />
 			</div>
 		);
 	}
 }
 
-// Export the componen back for use in other files
+// Export the component back for use in other files
 export default Main;

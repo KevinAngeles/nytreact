@@ -1,9 +1,12 @@
 // Include React
 var React = require("react");
 
-var Results = React.createClass({
+class Results extends React.Component {
+    constructor(props) {
+		super(props);
+	}
 
-	render: function() {
+	render() {
 		return (
 			<div id="resultSection" className="row">
 				<div className="col-md-8 col-md-offset-2">
@@ -11,19 +14,18 @@ var Results = React.createClass({
 						<h2>Results</h2>
 					</div>
                     <ul id="news" className="list-group">
-						<li className="titleNews list-group-item row">
-							<div className="col-md-8">Longhorns beats aggies again</div>
-							<div className="col-md-4 text-center"><button type="button" className="btn btn-success pull-right">Save</button></div>
-						</li>
-						<li className="titleNews list-group-item row">
-							<div className="col-md-8">Aliens Invade Austin</div>
-							<div className="col-md-4 text-center"><button type="button" className="btn btn-success pull-right">Save</button></div>
-						</li>
+						{
+							this.props.results.map(article => <li className="titleNews list-group-item row" key={article._id}>
+	                                <div className="col-md-8"><a href={article.web_url}>{article.lead_paragraph}</a></div>
+	                                <div className="col-md-4 text-center"><button type="button" className="btn btn-success pull-right">Save</button></div>
+	                            </li>
+                            )
+						}
 					</ul>
 				</div>
 			</div>
 		);
 	}
-});
+}
 
-module.exports = Results;
+export default Results;
