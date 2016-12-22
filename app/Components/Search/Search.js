@@ -24,12 +24,15 @@ class Search extends React.Component {
 	render() {
 		return (
 			<div id="searchSection" className="row">
-				<div className="col-md-12">
-					<div className="page-header">
-						<h2>Search</h2>
+				<div className="page-header">
+					<h2>Search</h2>
+				</div>
+				<div className="panel panel-primary">
+					<div className="panel-heading">
+						<h3 className="panel-title">Search articles on The New York Times</h3>
 					</div>
-					<form className="text-center" onSubmit={this.handleSubmit}>
-						<div className="form-group">
+					<form className="panel-body text-center" onSubmit={this.handleSubmit}>
+						<div className="panel-form-group">
 							<label forHtml="topic">Topic</label>
 							<input type="text" className="form-control" id="topic" placeholder="Topic" />
 						</div>

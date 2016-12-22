@@ -17,11 +17,24 @@ h3 {
 	position: relative
 	top: 0;
 }
+#pageSubTitle {
+	color: #FFF;
+	font-size: 20px;
+}
 #pageTitle {
 	color: #FFF;
 	font-size: 30px;
 }
-#pageSubTitle {
-	color: #FFF;
-	font-size: 20px;
+
+#savedSection .panel-body {
+    padding: 0;
+}
+#savedSection .savedArticle {
+	border-top: 0;
+	border-right: 1px;
+	border-bottom: 1px;
+	border-left: 1px;
+	border-color: #337ab7;
+	border-style: solid;
+	padding: 10px;
 }

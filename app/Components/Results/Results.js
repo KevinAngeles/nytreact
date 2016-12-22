@@ -21,20 +21,25 @@ class Results extends React.Component {
 	render() {
 		return (
 			<div id="resultSection" className="row">
-				<div className="col-md-8 col-md-offset-2">
-					<div className="page-header">
-						<h2>Results</h2>
-					</div>
-                    <ul id="news" className="list-group">
-						{
-							this.props.results.map(article => <li className="titleNews list-group-item row" key={article._id}>
-	                                <div className="col-md-8"><a href={article.web_url}>{article.lead_paragraph}</a></div>
-	                                <div className="col-md-4 text-center"><button type="button" className="btn btn-success pull-right" onClick={this.handleClick}>Save</button></div>
-	                            </li>
-                            )
-						}
-					</ul>
+				<div className="page-header">
+					<h2>Results</h2>
 				</div>
+                <div className="panel panel-primary">
+					<div className="panel-heading">
+						<h3 className="panel-title">List of articles</h3>
+					</div>
+                    <div className="panel-body">
+                        <ul id="news" className="list-group">
+    						{
+    							this.props.results.map(article => <li className="titleNews list-group-item row" key={article._id}>
+    	                                <div className="col-md-8"><a href={article.web_url}>{article.lead_paragraph}</a></div>
+    	                                <div className="col-md-4 text-center"><button type="button" className="btn btn-success pull-right" onClick={this.handleClick}>Save</button></div>
+    	                            </li>
+                                )
+    						}
+    					</ul>
+                    </div>
+                </div>
 			</div>
 		);
 	}
