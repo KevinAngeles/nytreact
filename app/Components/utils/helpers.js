@@ -22,6 +22,16 @@ const helpers = {
 		return axios.get(queryURL).then((savedArticles) => {
 			return savedArticles.data;
 		});
+	},
+	saveArticle: (title,url) => {
+		const queryURL = "/api/saved";
+
+		return axios.post(queryURL,{
+			title: title,
+			url: url
+		}).then((res) => {
+			return res.data;
+		});
 	}
 };
 

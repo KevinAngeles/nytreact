@@ -16,7 +16,8 @@ class Main extends React.Component {
 			savedArticles: [],
 			results: []
 		};
-        this.setTerm = this.setTerm.bind(this);
+		this.setTerm = this.setTerm.bind(this);
+        this.addArticle = this.addArticle.bind(this);
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -35,6 +36,12 @@ class Main extends React.Component {
 		});
 	}
 
+	addArticle(article) {
+        this.setState({
+            savedArticles: this.state.savedArticles.concat(article)
+        });
+	}
+
 	componentWillMount(prevProps, prevState) {
 		helpers.getSavedArticles().then((data) => {
 			this.setState({ savedArticles: data });
@@ -45,8 +52,8 @@ class Main extends React.Component {
 		return (
 			<div className="container">
 				<Search setTerm={this.setTerm} />
-				<Results results={this.state.results} />
-				<Saved savedArticles={this.state.savedArticles}/>
+				<Results results={this.state.results} addArticle={this.addArticle} />
+				<Saved savedArticles={this.state.savedArticles} />
 			</div>
 		);
 	}

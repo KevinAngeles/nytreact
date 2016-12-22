@@ -32,6 +32,10 @@ router.get("/api/saved", function(req, res) {
 
 // This route will receive POST requests and store articles into the db.
 router.post("/api/saved", function(req, res) {
+	console.log(req.body);
+    console.log(req.body.title);
+    console.log(req.body.url);
+
 	var entry = new Article({title:req.body.title,url:req.body.url,date:Date.now()});
 	// Now, save that article to the db
 	entry.save(function(err, doc) {
