@@ -84,7 +84,7 @@ npm run start
 
 ## Authors
 
-* **Kevin Angeles** - [KevinAngeles](https://github.com/KevinAngeles)
+* **Kevin Angeles** - [nytreact](https://github.com/KevinAngeles/nytreact)
 
 ## License
 
