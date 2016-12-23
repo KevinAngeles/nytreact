@@ -5,14 +5,19 @@ import helpers from "./../utils/helpers";
 class Results extends React.Component {
     constructor(props) {
 		super(props);
-        this.handleClick = this.handleClick.bind(this);
+        this.saveArticle = this.saveArticle.bind(this);
 	}
 
-	handleClick(event) {
+    // Save article into the database
+	saveArticle(event) {
 		event.preventDefault();
-		let articleData = event.target.parentNode.parentNode.getElementsByTagName('div')[0].getElementsByTagName('a')[0];
-		let title = articleData.text;
-		let url = articleData.getAttribute("href");
+		// Get the article from the array of articles using the index stored in the value of the buttom
+		let articleData = this.props.results[parseInt(event.target.value)];
+		// Get the title of the article
+		let title = articleData["snippet"];
+		// Get the url of the article
+		let url = articleData["web_url"];
+		// Make a POST request to save the article
         helpers.saveArticle(title,url).then((data) => {
             this.props.addArticle(data);
         });
@@ -31,9 +36,9 @@ class Results extends React.Component {
                     <div className="panel-body">
                         <ul id="news" className="list-group">
     						{
-    							this.props.results.map(article => <li className="titleNews list-group-item row" key={article._id}>
+    							this.props.results.map( (article,articleIndex) => <li className="titleNews list-group-item row" key={article._id}>
     	                                <div className="col-md-8"><a href={article.web_url}>{article.lead_paragraph}</a></div>
-    	                                <div className="col-md-4 text-center"><button type="button" className="btn btn-success pull-right" onClick={this.handleClick}>Save</button></div>
+    	                                <div className="col-md-4 text-center"><button type="button" className="btn btn-success pull-right" onClick={this.saveArticle} value={articleIndex}>Save</button></div>
     	                            </li>
                                 )
     						}

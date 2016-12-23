@@ -32,6 +32,17 @@ const helpers = {
 		}).then((res) => {
 			return res.data;
 		});
+	},
+	deleteArticle: (articleId) => {
+		const queryURL = "/api/saved";
+        return axios({
+            method: "delete",
+            url: queryURL,
+            data: {articleId:articleId},
+            params: {}
+        }).then((res) => {
+			return res;
+		});
 	}
 };
 

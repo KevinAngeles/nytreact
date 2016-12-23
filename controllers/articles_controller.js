@@ -10,6 +10,7 @@ var router  = express.Router();
 var models  = require('../models');
 var Article = models.Article;
 var Note = models.Note;
+var mongoose = require('mongoose');
 
 // Main "/" Route. This will redirect the user to the rendered React application
 router.get("/", function(req, res) {
@@ -32,10 +33,6 @@ router.get("/api/saved", function(req, res) {
 
 // This route will receive POST requests and store articles into the db.
 router.post("/api/saved", function(req, res) {
-	console.log(req.body);
-    console.log(req.body.title);
-    console.log(req.body.url);
-
 	var entry = new Article({title:req.body.title,url:req.body.url,date:Date.now()});
 	// Now, save that article to the db
 	entry.save(function(err, doc) {
@@ -49,6 +46,25 @@ router.post("/api/saved", function(req, res) {
             res.json(doc);
         }
 	});
+});
+
+// This route will receive DELETE requests and remove articles from the db.
+router.delete("/api/saved", function(req, res) {
+	var articleId = mongoose.Types.ObjectId(req.body.articleId);
+	Article.findOneAndRemove(
+		{ "_id": articleId},
+		function(err, doc) {
+			// Log any errors
+			if (err)
+	        {
+	            console.log(err);
+	        }
+	        else
+	        {
+	            res.json(doc);
+	        }
+		}
+	);
 });
 
 module.exports = router;

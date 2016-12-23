@@ -1,4 +1,5 @@
 import React from "react";
+import update from 'react-addons-update';
 
 // Import sub-components
 import Saved from "./Saved/Saved";
@@ -17,12 +18,15 @@ class Main extends React.Component {
 			results: []
 		};
 		this.setTerm = this.setTerm.bind(this);
-        this.addArticle = this.addArticle.bind(this);
+		this.addArticle = this.addArticle.bind(this);
+        this.deleteArticle = this.deleteArticle.bind(this);
 	}
 
 	componentDidUpdate(prevProps, prevState) {
+        // If the topic or beginDate or endDate are updated
 		if (prevState.searchTerm.topic !== this.state.searchTerm.topic || prevState.searchTerm.beginDate !== this.state.searchTerm.beginDate || prevState.searchTerm.endDate !== this.state.searchTerm.endDate ) {
-			helpers.getArticles(this.state.searchTerm.topic,this.state.searchTerm.beginDate,this.state.searchTerm.endDate).then((data) => {
+            // Get articles from the New York Times
+            helpers.getArticles(this.state.searchTerm.topic,this.state.searchTerm.beginDate,this.state.searchTerm.endDate).then((data) => {
 				if (data !== this.state.results) {
 					this.setState({ results: data });
 				}
@@ -30,20 +34,35 @@ class Main extends React.Component {
 		}
 	}
 
+	// Update the state searchTerm
 	setTerm(term) {
 		this.setState({
 			searchTerm: term
 		});
 	}
 
+	// Update the state savedArticles by adding a new article
 	addArticle(article) {
         this.setState({
             savedArticles: this.state.savedArticles.concat(article)
         });
 	}
 
+	// Update the state savedArticles by removing an article
+    deleteArticle(articleIndex) {
+        let updatedSavedArticles = update(this.state.savedArticles,  {
+                $splice: [[articleIndex, 1]]
+        });
+		this.setState({
+			savedArticles : updatedSavedArticles
+		});
+	}
+
+	// Before the first render, get all the savedArticles from the db and update the state savedArticles
 	componentWillMount(prevProps, prevState) {
+		// Get all the savedArticles from the db
 		helpers.getSavedArticles().then((data) => {
+			// Update the state savedArticles
 			this.setState({ savedArticles: data });
 		});
 	}
@@ -53,7 +72,7 @@ class Main extends React.Component {
 			<div className="container">
 				<Search setTerm={this.setTerm} />
 				<Results results={this.state.results} addArticle={this.addArticle} />
-				<Saved savedArticles={this.state.savedArticles} />
+				<Saved savedArticles={this.state.savedArticles} deleteArticle={this.deleteArticle} />
 			</div>
 		);
 	}

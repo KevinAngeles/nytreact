@@ -7,6 +7,7 @@ class Search extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
+	// Get the values from the form and update the react state
 	handleSubmit(event) {
 		event.preventDefault();
         var beginDate = document.getElementById("startYear").value;
@@ -33,15 +34,15 @@ class Search extends React.Component {
 					</div>
 					<form className="panel-body text-center" onSubmit={this.handleSubmit}>
 						<div className="panel-form-group">
-							<label forHtml="topic">Topic</label>
+							<label htmlFor="topic">Topic</label>
 							<input type="text" className="form-control" id="topic" placeholder="Topic" />
 						</div>
 						<div className="form-group">
-							<label forHtml="startYear">Start Year</label>
+							<label htmlFor="startYear">Start Year</label>
 							<input type="text" className="form-control" id="startYear" placeholder="MM/DD/YYYY" />
 						</div>
 						<div className="form-group">
-							<label forHtml="endYear">End Year</label>
+							<label htmlFor="endYear">End Year</label>
 							<input type="text" className="form-control" id="endYear" placeholder="MM/DD/YYYY" />
 						</div>
 						<button type="submit" className="btn btn-primary">Search</button>
