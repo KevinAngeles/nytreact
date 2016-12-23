@@ -1,4 +1,4 @@
-# New York Times React
+# New York Times React Search
 
 This application allows users to search for articles from the New York Times and save the links into a data base so users can read those articles later.
 

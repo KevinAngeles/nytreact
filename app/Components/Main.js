@@ -20,6 +20,7 @@ class Main extends React.Component {
 		this.setTerm = this.setTerm.bind(this);
 		this.addArticle = this.addArticle.bind(this);
         this.deleteArticle = this.deleteArticle.bind(this);
+		this.updateDisabledResults = this.updateDisabledResults.bind(this);
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -27,9 +28,17 @@ class Main extends React.Component {
 		if (prevState.searchTerm.topic !== this.state.searchTerm.topic || prevState.searchTerm.beginDate !== this.state.searchTerm.beginDate || prevState.searchTerm.endDate !== this.state.searchTerm.endDate ) {
             // Get articles from the New York Times
             helpers.getArticles(this.state.searchTerm.topic,this.state.searchTerm.beginDate,this.state.searchTerm.endDate).then((data) => {
-				if (data !== this.state.results) {
-					this.setState({ results: data });
-				}
+                let newData = data.map( (article) => {
+					// Check if there is at least one saved article
+					// with the same url that the article retrieved from the New York Times
+                    let btnDisabled = this.state.savedArticles.some(function(savedArticle) {
+                        return savedArticle["url"] === article["web_url"];
+                    });
+					// If the article is already stored in the database set button disabled
+                    article["btnDisabled"] = btnDisabled;
+					return article;
+				});
+				this.setState({ results: newData });
 			});
 		}
 	}
@@ -40,6 +49,14 @@ class Main extends React.Component {
 			searchTerm: term
 		});
 	}
+
+    // Update the state results by disabling the article saved
+    updateDisabledResults(index) {
+		let updatedResults = this.state.results;
+        updatedResults[parseInt(index)]["btnDisabled"] = true;
+		// Update the state results
+        this.setState({results:updatedResults});
+    }
 
 	// Update the state savedArticles by adding a new article
 	addArticle(article) {
@@ -71,7 +88,7 @@ class Main extends React.Component {
 		return (
 			<div className="container">
 				<Search setTerm={this.setTerm} />
-				<Results results={this.state.results} addArticle={this.addArticle} />
+				<Results results={this.state.results} addArticle={this.addArticle} updateDisabledResults={this.updateDisabledResults} />
 				<Saved savedArticles={this.state.savedArticles} deleteArticle={this.deleteArticle} />
 			</div>
 		);
