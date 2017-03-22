@@ -43,6 +43,9 @@ const helpers = {
         }).then((res) => {
 			return res;
 		});
+	},
+	normalizeDate: (dt) => {
+		return moment(dt).calendar();
 	}
 };
 
