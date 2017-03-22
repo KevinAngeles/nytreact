@@ -33,9 +33,11 @@ class Saved extends React.Component {
                     <div className="panel-body">
                     {
                         this.props.savedArticles.map((article,articleIndex) => <div className="savedArticle col-md-12" key={article._id}>
-            					<div className="row text-center">
-            						<div className="col-md-4"><h3><a href={article.url}>{article.title}</a></h3></div>
-            						<div className="col-md-4">Date Saved: {helpers.normalizeDate(article.date)}</div>
+                                <div className="row">
+                                    <div className="col-md-12">Date Saved: {helpers.normalizeDate(article.date)}</div>
+                                </div>
+                                <div className="row text-center">
+            						<div className="col-md-8"><h3><a href={article.url}>{article.title}</a></h3></div>
             						<div className="col-md-4"><button type="button" className="btn btn-danger" onClick={this.deleteSavedArticle} value={articleIndex}>Remove</button></div>
             					</div>
             				</div>
