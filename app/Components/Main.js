@@ -26,7 +26,7 @@ class Main extends React.Component {
 	componentDidUpdate(prevProps, prevState) {
 		// If the topic or beginDate or endDate are updated
 		if (
-			!(this.state.searchTerm.hasOwnProperty("Errors") && (this.state.searchTerm.errors.topic.status || this.state.searchTerm.errors.beginDate.status || this.state.searchTerm.errors.endDate.status)) 
+			!(this.state.searchTerm.hasOwnProperty("errors") && (this.state.searchTerm.errors.topic.status || this.state.searchTerm.errors.beginDate.status || this.state.searchTerm.errors.endDate.status)) 
 			&&
 			(prevState.searchTerm.topic !== this.state.searchTerm.topic || prevState.searchTerm.beginDate !== this.state.searchTerm.beginDate || prevState.searchTerm.endDate !== this.state.searchTerm.endDate)
 		) {
