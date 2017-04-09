@@ -25,7 +25,11 @@ class Main extends React.Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		// If the topic or beginDate or endDate are updated
-		if (prevState.searchTerm.topic !== this.state.searchTerm.topic || prevState.searchTerm.beginDate !== this.state.searchTerm.beginDate || prevState.searchTerm.endDate !== this.state.searchTerm.endDate ) {
+		if (
+			!(this.state.searchTerm.hasOwnProperty("Errors") && (this.state.searchTerm.errors.topic.status || this.state.searchTerm.errors.beginDate.status || this.state.searchTerm.errors.endDate.status)) 
+			&&
+			(prevState.searchTerm.topic !== this.state.searchTerm.topic || prevState.searchTerm.beginDate !== this.state.searchTerm.beginDate || prevState.searchTerm.endDate !== this.state.searchTerm.endDate)
+		) {
 			// Get articles from the New York Times
 			helpers.getArticles(this.state.searchTerm.topic,this.state.searchTerm.beginDate,this.state.searchTerm.endDate).then((data) => {
 				// If there is at least one result
@@ -88,7 +92,7 @@ class Main extends React.Component {
 	render() {
 		return (
 			<div className="container">
-				<Search setTerm={this.setTerm} />
+				<Search searchTerm={this.state.searchTerm} setTerm={this.setTerm} />
 				<Results results={this.state.results} addArticle={this.addArticle} updateDisabledResults={this.updateDisabledResults} />
 				<Saved savedArticles={this.state.savedArticles} deleteArticle={this.deleteArticle} />
 			</div>
