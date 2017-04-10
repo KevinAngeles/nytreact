@@ -66,7 +66,7 @@ class Main extends React.Component {
 	// Update the state savedArticles by adding a new article
 	addArticle(article) {
 		this.setState({
-			savedArticles: this.state.savedArticles.concat(article)
+			savedArticles: [article].concat(this.state.savedArticles)
 		});
 	}
 
