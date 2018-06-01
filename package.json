@@ -1,12 +1,13 @@
 {
 	"name": "nytreact",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "",
 	"main": "server.js",
 	"scripts": {
 		"start": "node ./bin/www",
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"build": "webpack -w"
+		"build": "webpack -w",
+		"postinstall": "./node_modules/.bin/webpack"
 	},
 	"repository": {
 		"type": "git",
