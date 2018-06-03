@@ -1,11 +1,11 @@
 // Include Server Dependencies
-var express = require("express");
-var bodyParser = require("body-parser");
-var logger = require("morgan");
-var mongoose = require("mongoose");
+const express = require("express");
+const bodyParser = require("body-parser");
+const logger = require("morgan");
+const mongoose = require("mongoose");
 
 // Create Instance of Express
-var app = express();
+const app = express();
 
 // Run Morgan for Logging
 app.use(logger("dev"));
@@ -20,17 +20,17 @@ app.use(express.static("./public"));
 
 // -------------------------------------------------
 // MongoDB Configuration with mongoose
-var dbConnection = process.env.MONGODB_URI || "mongodb://localhost/nytreact";
+let dbConnection = process.env.MONGODB_URI || "mongodb://localhost/nytreact";
 mongoose.connect(dbConnection);
-var db = mongoose.connection;
+let db = mongoose.connection;
 
 // Show any mongoose errors
-db.on("error", function(error) {
+db.on("error", error => {
 	console.log("Mongoose Error: ", error);
 });
 
 // Once logged in to the db through mongoose, log a success message
-db.once("open", function() {
+db.once("open", () => {
 	console.log("Mongoose connection successful.");
 });
 
@@ -39,8 +39,8 @@ db.once("open", function() {
  * the base route base_route (in this case '/') to all the routes inside controller_name
  * controller_name returns a Router object with the routes
  */
-var articles_controller = require('./controllers/articles_controller');
-var notes_controller = require('./controllers/notes_controller');
+let articles_controller = require('./controllers/articles_controller');
+let notes_controller = require('./controllers/notes_controller');
 app.use('/', articles_controller);
 app.use('/', notes_controller);
 

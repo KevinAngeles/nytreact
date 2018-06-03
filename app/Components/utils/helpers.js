@@ -12,7 +12,7 @@ const helpers = {
 
 		return axios.get(queryURL).then((response) => {
 			//Filter all the articles that don't have snippets or articles that have null or empty snippets
-            var articles = response.data.response.docs.filter( article => (article.hasOwnProperty('snippet') && typeof article['snippet'] === 'string' && article['snippet'].length) );
+            let articles = response.data.response.docs.filter( article => (article.hasOwnProperty('snippet') && typeof article['snippet'] === 'string' && article['snippet'].length) );
 			return articles;
     	});
 	},

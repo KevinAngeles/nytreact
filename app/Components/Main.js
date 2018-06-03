@@ -8,6 +8,7 @@ import Results from "./Results/Results";
 
 // Helper Function
 import helpers from "./utils/helpers";
+import moment from "moment";
 
 class Main extends React.Component {
 	constructor(props) {
@@ -15,9 +16,19 @@ class Main extends React.Component {
 		this.state = {
 			searchTerm: {},
 			savedArticles: [],
-			results: []
+			results: [],
+			calendar: {
+				date1: moment().subtract(1, 'months'),
+				date2: moment(),
+				focused1: false,
+				focused2: false,
+			}
 		};
 		this.setTerm = this.setTerm.bind(this);
+		this.setDate1 = this.setDate1.bind(this);
+		this.setDate2 = this.setDate2.bind(this);
+		this.setFocused1 = this.setFocused1.bind(this);
+		this.setFocused2 = this.setFocused2.bind(this);
 		this.addArticle = this.addArticle.bind(this);
 		this.deleteArticle = this.deleteArticle.bind(this);
 		this.updateDisabledResults = this.updateDisabledResults.bind(this);
@@ -52,6 +63,42 @@ class Main extends React.Component {
 	setTerm(term) {
 		this.setState({
 			searchTerm: term
+		});
+	}
+
+	setDate1(dt) {
+		this.setState( prev => { 
+			let currentCalendarState = {...prev.calendar};
+			currentCalendarState.date1 = dt;
+			
+			return {calendar: currentCalendarState};
+		});
+	}
+
+	setDate2(dt) {
+		this.setState( prev => {
+			let currentCalendarState = {...prev.calendar};
+			currentCalendarState.date2 = dt;
+		
+			return {calendar: currentCalendarState};
+		});
+	}
+
+	setFocused1(f) {
+		this.setState( prev => {
+			let currentCalendarState = {...prev.calendar};
+			currentCalendarState.focused1 = f;
+			
+			return {calendar: currentCalendarState};
+		});
+	}
+
+	setFocused2(f) {
+		this.setState( prev => {
+			let currentCalendarState = {...prev.calendar};
+			currentCalendarState.focused2 = f;
+			
+			return {calendar: currentCalendarState};
 		});
 	}
 
@@ -92,7 +139,18 @@ class Main extends React.Component {
 	render() {
 		return (
 			<div className="container">
-				<Search searchTerm={this.state.searchTerm} setTerm={this.setTerm} />
+				<Search 
+					searchTerm={this.state.searchTerm}
+					setTerm={this.setTerm}
+					date1={this.state.calendar.date1}
+					setDate1={this.setDate1}
+					date2={this.state.calendar.date2}
+					setDate2={this.setDate2}
+					focused1={this.state.calendar.focused1}
+					setFocused1={this.setFocused1}
+					focused2={this.state.calendar.focused2}
+					setFocused2={this.setFocused2}
+				/>
 				<Results results={this.state.results} addArticle={this.addArticle} updateDisabledResults={this.updateDisabledResults} />
 				<Saved savedArticles={this.state.savedArticles} deleteArticle={this.deleteArticle} />
 			</div>

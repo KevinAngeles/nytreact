@@ -1,5 +1,5 @@
 // Include React
-var React = require("react");
+const React = require("react");
 import helpers from "./../utils/helpers";
 
 class Results extends React.Component {

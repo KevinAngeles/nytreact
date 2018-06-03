@@ -1,7 +1,15 @@
-// Include React
-var React = require("react");
+import 'react-dates/initialize';
+import React, { Component } from 'react';
+import moment from "moment";
+import { SingleDatePicker } from 'react-dates';
+import 'react-dates/lib/css/_datepicker.css';
+import isInclusivelyAfterDay from 'react-dates/src/utils/isInclusivelyAfterDay';
 
-class Search extends React.Component {
+moment.locale('en');
+const displayFormatDate = 'MM/DD/YYYY';
+const today = moment().format(displayFormatDate); 
+
+class Search extends Component {
 	constructor(props) {
 		super(props);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -9,23 +17,23 @@ class Search extends React.Component {
 		this.checkBeginBeforeEndDate = this.checkBeginBeforeEndDate.bind(this);
 	}
 	validateDate(dt) {
-		var dateFormatPattern = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
+		const dateFormatPattern = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
 
 		// Check that date is not empty and has the correct format
 		if(!dateFormatPattern.test(dt))
 			return false;
 
 		// Parse the date parts to integers
-		var parts = dt.split("/");
-		var day = parseInt(parts[1], 10);
-		var month = parseInt(parts[0], 10);
-		var year = parseInt(parts[2], 10);
+		let parts = dt.split("/");
+		let day = parseInt(parts[1], 10);
+		let month = parseInt(parts[0], 10);
+		let year = parseInt(parts[2], 10);
 
 		// Check the ranges of month and year
 		if(year < 1000 || year > 3000 || month == 0 || month > 12)
 			return false;
 
-		var monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+		let monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 
 		// Adjust for leap years
 		if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
@@ -41,12 +49,12 @@ class Search extends React.Component {
 	// Get the values from the form and update the react state
 	handleSubmit(event) {
 		event.preventDefault();
-		var beginDate = document.getElementById("startYear").value;
-		var endDate = document.getElementById("endYear").value;
-		var formattedBeginDate = moment(beginDate, "MM/DD/YYYY").format("YYYYMMDD");
-		var formattedEndDate = moment(endDate, "MM/DD/YYYY").format("YYYYMMDD");
+		let beginDate = document.getElementById("startYear").value;
+		let endDate = document.getElementById("endYear").value;
+		let formattedBeginDate = moment(beginDate, "MM/DD/YYYY").format("YYYYMMDD");
+		let formattedEndDate = moment(endDate, "MM/DD/YYYY").format("YYYYMMDD");
 		
-		var newTerm = {
+		let newTerm = {
 			"topic": document.getElementById("topic").value,
 			"beginDate": formattedBeginDate,
 			"endDate": formattedEndDate,
@@ -102,6 +110,7 @@ class Search extends React.Component {
 						<h3 className="panel-title">Search articles on The New York Times</h3>
 					</div>
 					<form className="panel-body text-center" onSubmit={this.handleSubmit}>
+
 						<div className="panel-form-group">
 							<label htmlFor="topic">Topic</label>
 							<input type="text" className="form-control" id="topic" placeholder="Topic" />
@@ -109,12 +118,42 @@ class Search extends React.Component {
 						</div>
 						<div className="form-group">
 							<label htmlFor="startYear">Start Year</label>
-							<input type="text" className="form-control" id="startYear" placeholder="MM/DD/YYYY" />
+							<div>
+								<SingleDatePicker
+									id="startYear"
+									date={this.props.date1} // momentPropTypes.momentObj or null
+									onDateChange={ e => this.props.setDate1(e)} // PropTypes.func.isRequired
+									focused={this.props.focused1} // PropTypes.bool
+									onFocusChange={({ focused }) => this.props.setFocused1(focused)} // PropTypes.func.isRequired
+									enableOutsideDays={false}
+									isOutsideRange={day => isInclusivelyAfterDay(day, this.props.date2)}
+									readOnly={true}
+									displayFormat={displayFormatDate}
+									numberOfMonths={1} 
+									placeholder={today}
+								/>
+							</div>
 							{this.props.searchTerm.hasOwnProperty("errors") && this.props.searchTerm.errors.beginDate.status == true ? <div className="alert alert-danger"><strong>Error!</strong> {this.props.searchTerm.errors.beginDate.msg}</div>:""}
 						</div>
 						<div className="form-group">
 							<label htmlFor="endYear">End Year</label>
-							<input type="text" className="form-control" id="endYear" placeholder="MM/DD/YYYY" />
+							<div>	
+								<SingleDatePicker
+									id="endYear"
+									date={this.props.date2} // momentPropTypes.momentObj or null
+									onDateChange={ e => this.props.setDate2(e)} // PropTypes.func.isRequired
+									focused={this.props.focused2} // PropTypes.bool
+									onFocusChange={({ focused }) => this.props.setFocused2(focused)} // PropTypes.func.isRequired
+									enableOutsideDays={false}
+									isOutsideRange={ day => 
+										!isInclusivelyAfterDay(day, this.props.date1) || isInclusivelyAfterDay(day, moment().add(1, 'days'))
+									}
+									readOnly={true}
+									displayFormat={displayFormatDate}
+									numberOfMonths={1}
+									placeholder={today}
+								/>
+							</div>
 							{this.props.searchTerm.hasOwnProperty("errors") && this.props.searchTerm.errors.endDate.status == true ? <div className="alert alert-danger"><strong>Error!</strong> {this.props.searchTerm.errors.endDate.msg}</div>:""}
 						</div>
 						<button type="submit" className="btn btn-primary">Search</button>
