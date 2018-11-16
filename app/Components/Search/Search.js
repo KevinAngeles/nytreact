@@ -156,7 +156,7 @@ class Search extends Component {
 							</div>
 							{this.props.searchTerm.hasOwnProperty("errors") && this.props.searchTerm.errors.endDate.status == true ? <div className="alert alert-danger"><strong>Error!</strong> {this.props.searchTerm.errors.endDate.msg}</div>:""}
 						</div>
-						<button type="submit" className="btn btn-primary">Search</button>
+						<button type="submit" className="btn paper paper-raise">Search</button>
 					</form>
 				</div>
 			</div>

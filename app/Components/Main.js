@@ -5,6 +5,7 @@ import update from 'react-addons-update';
 import Saved from "./Saved/Saved";
 import Search from "./Search/Search";
 import Results from "./Results/Results";
+import NavHeader from "./NavHeader/NavHeader";
 
 // Helper Function
 import helpers from "./utils/helpers";
@@ -138,21 +139,24 @@ class Main extends React.Component {
 
 	render() {
 		return (
-			<div className="container">
-				<Search 
-					searchTerm={this.state.searchTerm}
-					setTerm={this.setTerm}
-					date1={this.state.calendar.date1}
-					setDate1={this.setDate1}
-					date2={this.state.calendar.date2}
-					setDate2={this.setDate2}
-					focused1={this.state.calendar.focused1}
-					setFocused1={this.setFocused1}
-					focused2={this.state.calendar.focused2}
-					setFocused2={this.setFocused2}
-				/>
-				<Results results={this.state.results} addArticle={this.addArticle} updateDisabledResults={this.updateDisabledResults} />
-				<Saved savedArticles={this.state.savedArticles} deleteArticle={this.deleteArticle} />
+			<div>
+				<NavHeader/>
+				<div className="container">
+					<Search 
+						searchTerm={this.state.searchTerm}
+						setTerm={this.setTerm}
+						date1={this.state.calendar.date1}
+						setDate1={this.setDate1}
+						date2={this.state.calendar.date2}
+						setDate2={this.setDate2}
+						focused1={this.state.calendar.focused1}
+						setFocused1={this.setFocused1}
+						focused2={this.state.calendar.focused2}
+						setFocused2={this.setFocused2}
+					/>
+					<Results results={this.state.results} addArticle={this.addArticle} updateDisabledResults={this.updateDisabledResults} />
+					<Saved savedArticles={this.state.savedArticles} deleteArticle={this.deleteArticle} />
+				</div>
 			</div>
 		);
 	}

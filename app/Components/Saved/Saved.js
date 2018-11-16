@@ -38,7 +38,7 @@ class Saved extends React.Component {
                                 </div>
                                 <div className="row text-center">
             						<div className="col-md-8"><h3><a href={article.url}>{article.title}</a></h3></div>
-            						<div className="col-md-4"><button type="button" className="btn btn-danger" onClick={this.deleteSavedArticle} value={articleIndex}>Remove</button></div>
+            						<div className="col-md-4"><button type="button" className="btn paper paper-raise" onClick={this.deleteSavedArticle} value={articleIndex}>Remove</button></div>
             					</div>
             				</div>
                         )

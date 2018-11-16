@@ -43,7 +43,7 @@ class Results extends React.Component {
 							{
 								this.props.results.hasOwnProperty("error") ? <span>{this.props.results.error}</span> : this.props.results.map( (article,articleIndex) => <li className="titleNews list-group-item row" key={article._id}>
 										<div className="col-md-8"><a href={article.web_url}>{article.snippet}</a></div>
-										<div className="col-md-4 text-center"><button type="button" className="btn btn-success pull-right" onClick={this.saveArticle} value={articleIndex} disabled={article.btnDisabled}>Save</button></div>
+										<div className="col-md-4 text-center"><button type="button" className="btn paper paper-raise" onClick={this.saveArticle} value={articleIndex} disabled={article.btnDisabled}>Save</button></div>
 									</li>
 								)
 							}
